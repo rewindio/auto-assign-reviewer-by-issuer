@@ -24,9 +24,9 @@
   },
   "homepage": "https://github.com/actions/javascript-action#readme",
   "dependencies": {
-    "@actions/core": "^1.2.6",
+    "@actions/core": "^1.9.1",
     "@actions/github": "^2.1.1",
-    "got": "^11.5.1",
+    "got": "^11.8.5",
     "lodash": "^4.17.21",
     "yaml": "^1.9.2"
   },
