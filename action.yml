@@ -9,12 +9,12 @@ inputs:
     required: true
     default: 'default'
   config:
-    description: 'condifuration file'
+    description: 'configuration file'
     required: false
     default: '.github/auto-assigner.yml'
 outputs:
-  time: # output will be available to future steps 
+  time: # output will be available to future steps
     description: 'The message to output'
 runs:
-  using: 'node12'
+  using: 'node16'
   main: 'dist/index.js'
