@@ -4,6 +4,7 @@ on:
     types: [opened, edited]
 
 jobs:
+
   assign:
     runs-on: ubuntu-latest
     steps:
