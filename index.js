@@ -36,12 +36,15 @@ async function run() {
       assignReviewers(octokit, reviewers);
     }
   } catch (error) {
-    console.log("I've failed...")
     core.setFailed(error.message);
   }
 }
 async function assignReviewers(octokit, reviewers) {
   console.log("I'm in assignReviewers...")
+  console.log("this is the owner", context.repo.owner)
+  console.log("this is the repo", context.repo.repo)
+  console.log("this is the PR number", context.payload.pull_request.number)
+  console.log("this is the reviewers", reviewers)
   await octokit.pulls.createReviewRequest({
     owner: context.repo.owner,
     repo: context.repo.repo,
