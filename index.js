@@ -31,7 +31,7 @@ async function run() {
 
     if (hasAssignee(config, issuer)) {
       let reviewers = getReviewers(config, issuer);
-      assignReviewers(octokit, reviewers);
+      // assignReviewers(octokit, reviewers);
     }
   } catch (error) {
     core.setFailed(error.message);
