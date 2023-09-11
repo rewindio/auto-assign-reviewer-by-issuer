@@ -31,6 +31,7 @@ async function run() {
 
     if (hasAssignee(config, issuer)) {
       let reviewers = getReviewers(config, issuer);
+      console.log("There is an assignee...")
       assignReviewers(octokit, reviewers);
     }
   } catch (error) {
@@ -38,7 +39,8 @@ async function run() {
   }
 }
 async function assignReviewers(octokit, reviewers) {
-  await octokit.pulls.requestReviewers({
+  console.log("I'm in assignReviewers...")
+  await octokit.pulls.createReviewRequest({
     owner: context.repo.owner,
     repo: context.repo.repo,
     pull_number: context.payload.pull_request.number,
