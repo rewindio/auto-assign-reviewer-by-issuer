@@ -36,6 +36,7 @@ async function run() {
       assignReviewers(octokit, reviewers);
     }
   } catch (error) {
+    console.log("I've failed...")
     core.setFailed(error.message);
   }
 }
