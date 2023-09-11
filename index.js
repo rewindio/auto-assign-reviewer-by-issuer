@@ -15,10 +15,8 @@ async function run() {
     const octokit = new github.GitHub(token);
 
     if (configPath.startsWith("http")) {
-      console.log(`Reading config from URL...`);
       configContent = await getUrl(configPath);
     } else {
-      console.log(`Reading config from local path...`);
       configContent = await fetchContent(octokit, configPath);
     }
 
@@ -30,9 +28,7 @@ async function run() {
     const issuer = context.payload.pull_request.user.login;
 
     if (hasAssignee(config, issuer)) {
-      console.log("There is an assignee...")
       let reviewers = getReviewers(config, issuer);
-      console.log("The reviewers are...", reviewers)
       assignReviewers(octokit, reviewers);
     }
   } catch (error) {
@@ -40,11 +36,6 @@ async function run() {
   }
 }
 async function assignReviewers(octokit, reviewers) {
-  console.log("I'm in assignReviewers...")
-  console.log("this is the owner", context.repo.owner)
-  console.log("this is the repo", context.repo.repo)
-  console.log("this is the PR number", context.payload.pull_request.number)
-  console.log("this is the reviewers", reviewers)
   await octokit.pulls.createReviewRequest({
     owner: context.repo.owner,
     repo: context.repo.repo,
