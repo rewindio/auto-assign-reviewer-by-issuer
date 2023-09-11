@@ -15,8 +15,10 @@ async function run() {
     const octokit = new github.GitHub(token);
 
     if (configPath.startsWith("http")) {
+      console.log(`Reading config from URL...`);
       configContent = await getUrl(configPath);
     } else {
+      console.log(`Reading config from local path...`);
       configContent = await fetchContent(octokit, configPath);
     }
 
