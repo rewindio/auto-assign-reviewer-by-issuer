@@ -8,6 +8,7 @@ const { parseConfig, hasAssignee, getReviewers } = require("./lib/util");
 async function run() {
   let configContent = '';
 
+
   try {
     const token = core.getInput("token", { required: true });
     const configPath = core.getInput("config");
@@ -36,7 +37,6 @@ async function run() {
     core.setFailed(error.message);
   }
 }
-
 async function assignReviewers(octokit, reviewers) {
   await octokit.pulls.createReviewRequest({
     owner: context.repo.owner,
