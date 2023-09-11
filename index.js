@@ -14,13 +14,13 @@ async function run() {
     const configPath = core.getInput("config");
     const octokit = new github.GitHub(token);
 
-//     if (configPath.startsWith("http")) {
-//       console.log(`Reading config from URL...`);
-//       configContent = await getUrl(configPath);
-//     } else {
-//       console.log(`Reading config from local path...`);
-//       configContent = await fetchContent(octokit, configPath);
-//     }
+    if (configPath.startsWith("http")) {
+      console.log(`Reading config from URL...`);
+      configContent = await getUrl(configPath);
+    } else {
+      console.log(`Reading config from local path...`);
+      configContent = await fetchContent(octokit, configPath);
+    }
 
 //     const config = parseConfig(configContent);
 
@@ -46,16 +46,16 @@ async function run() {
 //   });
 // }
 
-// async function fetchContent(client, repoPath) {
-//   const response = await client.repos.getContents({
-//     owner: github.context.repo.owner,
-//     repo: github.context.repo.repo,
-//     path: repoPath,
-//     ref: github.context.sha,
-//   });
+async function fetchContent(client, repoPath) {
+  const response = await client.repos.getContents({
+    owner: github.context.repo.owner,
+    repo: github.context.repo.repo,
+    path: repoPath,
+    ref: github.context.sha,
+  });
 
-//   return Buffer.from(response.data.content, response.data.encoding).toString();
-// }
+  return Buffer.from(response.data.content, response.data.encoding).toString();
+}
 
 // async function getUrl(url) {
 //   const response = await got(url);
