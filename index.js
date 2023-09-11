@@ -30,8 +30,9 @@ async function run() {
     const issuer = context.payload.pull_request.user.login;
 
     if (hasAssignee(config, issuer)) {
-      let reviewers = getReviewers(config, issuer);
       console.log("There is an assignee...")
+      let reviewers = getReviewers(config, issuer);
+      console.log("The reviewers are...", reviewers)
       assignReviewers(octokit, reviewers);
     }
   } catch (error) {
