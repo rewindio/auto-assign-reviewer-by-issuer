@@ -22,12 +22,12 @@ async function run() {
       configContent = await fetchContent(octokit, configPath);
     }
 
-//     const config = parseConfig(configContent);
+    const config = parseConfig(configContent);
 
-//     core.debug("config");
-//     core.debug(JSON.stringify(config));
+    core.debug("config");
+    core.debug(JSON.stringify(config));
 
-//     const issuer = context.payload.pull_request.user.login;
+    const issuer = context.payload.pull_request.user.login;
 
 //     if (hasAssignee(config, issuer)) {
 //       let reviewers = getReviewers(config, issuer);
