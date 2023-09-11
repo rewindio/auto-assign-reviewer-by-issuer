@@ -29,10 +29,10 @@ async function run() {
 
     const issuer = context.payload.pull_request.user.login;
 
-//     if (hasAssignee(config, issuer)) {
-//       let reviewers = getReviewers(config, issuer);
+    if (hasAssignee(config, issuer)) {
+      let reviewers = getReviewers(config, issuer);
 //       assignReviewers(octokit, reviewers);
-//     }
+    }
   } catch (error) {
     core.setFailed(error.message);
   }
