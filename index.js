@@ -6,13 +6,13 @@ const { parseConfig, hasAssignee, getReviewers } = require("./lib/util");
 
 // most @actions toolkit packages have async methods
 async function run() {
-  // let configContent = '';
+  let configContent = '';
 
-}
-  // try {
-//     const token = core.getInput("token", { required: true });
-//     const configPath = core.getInput("config");
-//     const octokit = new github.GitHub(token);
+
+  try {
+    const token = core.getInput("token", { required: true });
+    const configPath = core.getInput("config");
+    const octokit = new github.GitHub(token);
 
 //     if (configPath.startsWith("http")) {
 //       console.log(`Reading config from URL...`);
@@ -33,11 +33,10 @@ async function run() {
 //       let reviewers = getReviewers(config, issuer);
 //       assignReviewers(octokit, reviewers);
 //     }
-//   } catch (error) {
-//     core.setFailed(error.message);
-//   }
-// }
-
+  } catch (error) {
+    core.setFailed(error.message);
+  }
+}
 // async function assignReviewers(octokit, reviewers) {
 //   await octokit.pulls.createReviewRequest({
 //     owner: context.repo.owner,
