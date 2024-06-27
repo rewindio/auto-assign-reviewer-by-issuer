@@ -1,8 +1,8 @@
-import { parseConfig, hasAssignee, getReviewers } from "../lib/util";
-import { readFileSync } from "fs";
+const { parseConfig, hasAssignee, getReviewers } = require("../lib/util");
+const fs = require("fs");
 
 test("config parser", async () => {
-  const content = readFileSync(process.cwd() + "/.github/auto-assigner.yml", {
+  const content = fs.readFileSync(process.cwd() + "/.github/auto-assigner.yml", {
     encoding: "utf8",
   });
   const config = parseConfig(content);
@@ -10,7 +10,7 @@ test("config parser", async () => {
 });
 
 test("assignee matching", async () => {
-  const content = readFileSync(process.cwd() + "/.github/auto-assigner.yml", {
+  const content = fs.readFileSync(process.cwd() + "/.github/auto-assigner.yml", {
     encoding: "utf8",
   });
 
@@ -23,7 +23,7 @@ test("assignee matching", async () => {
 });
 
 test("get reviewers", async () => {
-  const content = readFileSync(process.cwd() + "/.github/auto-assigner.yml", {
+  const content = fs.readFileSync(process.cwd() + "/.github/auto-assigner.yml", {
     encoding: "utf8",
   });
 
