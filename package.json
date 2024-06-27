@@ -3,6 +3,7 @@
   "version": "1.1.0",
   "description": "JavaScript Action Template",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "lint": "eslint index.js",
     "package": "ncc build index.js -o dist --minify",
@@ -32,7 +33,6 @@
   },
   "devDependencies": {
     "@vercel/ncc": "^0.38.1",
-    "app-root-path": "^3.0.0",
     "eslint": "^8.57.0",
     "eslint-plugin-jest": "^25.7.0",
     "jest": "^29.7.0"

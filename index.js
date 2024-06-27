@@ -1,8 +1,9 @@
-const core = require("@actions/core");
-const github = require("@actions/github");
+import core from "@actions/core";
+import github from "@actions/github";
+import got from 'got';
+import { parseConfig, hasAssignee, getReviewers } from "./lib/util";
+
 const context = github.context;
-const got = require('got');
-const { parseConfig, hasAssignee, getReviewers } = require("./lib/util");
 
 // most @actions toolkit packages have async methods
 async function run() {
