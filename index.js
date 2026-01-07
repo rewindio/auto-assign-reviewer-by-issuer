@@ -38,33 +38,21 @@ async function run() {
 }
 
 async function assignReviewers(octokit, reviewers) {
-  try {
-    await octokit.pulls.createReviewRequest({
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      pull_number: context.payload.pull_request.number,
-      reviewers: reviewers,
-    });
-  } catch (error) {
-    console.error('Error assigning reviewers:', error.message);
-    console.error('Error details:', error);
-  }
+  await octokit.pulls.createReviewRequest({
+    owner: context.repo.owner,
+    repo: context.repo.repo,
+    pull_number: context.payload.pull_request.number,
+    reviewers: reviewers,
+  });
 }
 
 async function fetchContent(client, repoPath) {
-  let response;
-  
-  try {
-    response = await client.rest.repos.getContents({
-      owner: github.context.repo.owner,
-      repo: github.context.repo.repo,
-      path: repoPath,
-      ref: github.context.sha,
-    });
-  } catch (error) {
-    console.error('Error fetching content:', error.message);
-    console.error('Error details:', error);
-  }
+  const response = await client.rest.repos.getContent({
+    owner: github.context.repo.owner,
+    repo: github.context.repo.repo,
+    path: repoPath,
+    ref: github.context.sha,
+  });
 
   return Buffer.from(response.data.content, response.data.encoding).toString();
 }
