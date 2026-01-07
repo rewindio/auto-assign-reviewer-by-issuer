@@ -8,7 +8,6 @@ const { parseConfig, hasAssignee, getReviewers } = require("./lib/util");
 async function run() {
   let configContent = '';
 
-
   try {
     const token = core.getInput("token", { required: true });
     const configPath = core.getInput("config");
@@ -39,21 +38,33 @@ async function run() {
 }
 
 async function assignReviewers(octokit, reviewers) {
-  await octokit.rest.pulls.createReviewRequest({
-    owner: context.repo.owner,
-    repo: context.repo.repo,
-    pull_number: context.payload.pull_request.number,
-    reviewers: reviewers,
-  });
+  try {
+    await octokit.pulls.createReviewRequest({
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      pull_number: context.payload.pull_request.number,
+      reviewers: reviewers,
+    });
+  } catch (error) {
+    console.error('Error assigning reviewers:', error.message);
+    console.error('Error details:', error);
+  }
 }
 
 async function fetchContent(client, repoPath) {
-  const response = await client.rest.repos.getContents({
-    owner: github.context.repo.owner,
-    repo: github.context.repo.repo,
-    path: repoPath,
-    ref: github.context.sha,
-  });
+  let response;
+  
+  try {
+    response = await client.rest.repos.getContents({
+      owner: github.context.repo.owner,
+      repo: github.context.repo.repo,
+      path: repoPath,
+      ref: github.context.sha,
+    });
+  } catch (error) {
+    console.error('Error fetching content:', error.message);
+    console.error('Error details:', error);
+  }
 
   return Buffer.from(response.data.content, response.data.encoding).toString();
 }
