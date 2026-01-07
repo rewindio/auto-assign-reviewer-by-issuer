@@ -12,7 +12,7 @@ async function run() {
   try {
     const token = core.getInput("token", { required: true });
     const configPath = core.getInput("config");
-    const octokit = new github.GitHub(token);
+    const octokit = github.getOctokit(token);
 
     if (configPath.startsWith("http")) {
       console.log(`Reading config from URL...`);
@@ -31,12 +31,13 @@ async function run() {
 
     if (hasAssignee(config, issuer)) {
       let reviewers = getReviewers(config, issuer);
-      assignReviewers(octokit, reviewers);
+      await assignReviewers(octokit, reviewers);
     }
   } catch (error) {
     core.setFailed(error.message);
   }
 }
+
 async function assignReviewers(octokit, reviewers) {
   await octokit.pulls.createReviewRequest({
     owner: context.repo.owner,
