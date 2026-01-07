@@ -39,7 +39,7 @@ async function run() {
 }
 
 async function assignReviewers(octokit, reviewers) {
-  await octokit.pulls.createReviewRequest({
+  await octokit.rest.pulls.createReviewRequest({
     owner: context.repo.owner,
     repo: context.repo.repo,
     pull_number: context.payload.pull_request.number,
@@ -48,7 +48,7 @@ async function assignReviewers(octokit, reviewers) {
 }
 
 async function fetchContent(client, repoPath) {
-  const response = await client.repos.getContents({
+  const response = await client.rest.repos.getContents({
     owner: github.context.repo.owner,
     repo: github.context.repo.repo,
     path: repoPath,
