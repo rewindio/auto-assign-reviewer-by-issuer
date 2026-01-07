@@ -38,7 +38,7 @@ async function run() {
 }
 
 async function assignReviewers(octokit, reviewers) {
-  await octokit.rest.pulls.requestReviewers(({
+  await octokit.rest.pulls.requestReviewers({
     owner: context.repo.owner,
     repo: context.repo.repo,
     pull_number: context.payload.pull_request.number,
