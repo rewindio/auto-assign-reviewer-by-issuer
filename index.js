@@ -8,11 +8,10 @@ const { parseConfig, hasAssignee, getReviewers } = require("./lib/util");
 async function run() {
   let configContent = '';
 
-
   try {
     const token = core.getInput("token", { required: true });
     const configPath = core.getInput("config");
-    const octokit = new github.GitHub(token);
+    const octokit = github.getOctokit(token);
 
     if (configPath.startsWith("http")) {
       console.log(`Reading config from URL...`);
@@ -31,14 +30,15 @@ async function run() {
 
     if (hasAssignee(config, issuer)) {
       let reviewers = getReviewers(config, issuer);
-      assignReviewers(octokit, reviewers);
+      await assignReviewers(octokit, reviewers);
     }
   } catch (error) {
     core.setFailed(error.message);
   }
 }
+
 async function assignReviewers(octokit, reviewers) {
-  await octokit.pulls.createReviewRequest({
+  await octokit.rest.pulls.requestReviewers({
     owner: context.repo.owner,
     repo: context.repo.repo,
     pull_number: context.payload.pull_request.number,
@@ -47,7 +47,7 @@ async function assignReviewers(octokit, reviewers) {
 }
 
 async function fetchContent(client, repoPath) {
-  const response = await client.repos.getContents({
+  const response = await client.rest.repos.getContent({
     owner: github.context.repo.owner,
     repo: github.context.repo.repo,
     path: repoPath,
